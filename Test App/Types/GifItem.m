@@ -8,7 +8,7 @@
 
 @implementation GifItem {
     NSString *_identifier;
-    //CGSize _size;
+    CGSize _originalSize;
 }
 
 @synthesize size, gifData;
@@ -18,6 +18,7 @@
     if (self == nil) { return nil; }
 
     _identifier = identifier;
+    _originalSize = itemSize;
     self.size = itemSize;
 
     return self;
@@ -25,6 +26,6 @@
 
 - (NSString *)identifier { return _identifier; }
 
-//- (CGSize)size { return _size; }
+- (CGSize)originalSize { return _originalSize; }
 
 @end

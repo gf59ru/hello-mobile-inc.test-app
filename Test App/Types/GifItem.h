@@ -9,6 +9,7 @@
 @interface GifItem : NSObject
 
 @property (nonatomic, strong, readonly) NSString *identifier;
+@property (nonatomic, readonly) CGSize originalSize;
 @property (nonatomic) CGSize size;
 @property (nonatomic, strong) NSData *gifData;
 
