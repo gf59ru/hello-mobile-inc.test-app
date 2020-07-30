@@ -33,7 +33,9 @@
         if (data == nil) { return; }
 
         __strong GifDownload *strongSelf = weakSelf;
-        [strongSelf.delegate downloadComplete:data forId:identifier andToken:token];
+        if (strongSelf.delegate != nil && [strongSelf.delegate respondsToSelector:@selector(downloadComplete:forId:andToken:)]) {
+            [strongSelf.delegate downloadComplete:data forId:identifier andToken:token];
+        }
     }];
 
     [downloadTasks addObject:task];

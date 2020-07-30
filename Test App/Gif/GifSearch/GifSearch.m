@@ -34,7 +34,9 @@ const NSString *apiKey = @"R911GOAN98UV";
         NSArray *topGifs = dictionary[@"results"];
         [weakSelf stopTask];
 
-        [weakSelf.delegate gifSearchHasResult:topGifs];
+        if (weakSelf.delegate != nil && [weakSelf.delegate respondsToSelector:@selector(gifSearchHasResult:)]) {
+            [weakSelf.delegate gifSearchHasResult:topGifs];
+        }
     }];
 }
 
