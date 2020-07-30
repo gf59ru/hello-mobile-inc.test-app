@@ -19,6 +19,7 @@
     }
 
     UIImageView *imageView = UIImageView.new;
+    [imageView setClipsToBounds:YES];
     [cell.contentView addSubview:imageView];
     imageView.translatesAutoresizingMaskIntoConstraints = false;
     [NSLayoutConstraint activateConstraints:@[
@@ -28,8 +29,13 @@
             [imageView.bottomAnchor constraintEqualToAnchor:cell.contentView.bottomAnchor],
     ]];
 
-    NSUInteger row = (NSUInteger)indexPath.row;
-    [imageView loadGifImageFromData:gifData[row]];
+    NSUInteger row = (NSUInteger) indexPath.row;
+    if (row < gifData.count) {
+        NSData *itemData = gifData[row].gifData;
+        if (itemData == nil) { imageView.image = nil; }
+        else {[imageView loadGifImageFromData:itemData]; }
+    }
+    else { imageView.image = nil; }
 
     return cell;
 }
@@ -37,7 +43,9 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout *)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(collectionView.frame.size.width / 3, 94);
+    NSUInteger row = (NSUInteger)indexPath.row;
+    CGSize size = gifData[row].size;
+    return CGSizeMake(size.width, self.rowHeight);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {

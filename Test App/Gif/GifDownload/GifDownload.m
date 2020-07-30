@@ -24,7 +24,7 @@
     return self;
 }
 
-- (void)downloadGifWithUrl:(NSURL *)url withToken:(NSDate *)token {
+- (void)downloadGifWithUrl:(NSURL *)url id:(NSString *)identifier usingToken:(NSDate *)token {
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
     __weak GifDownload *weakSelf = self;
     NSURLSessionTask *task = [NSURLSession.sharedSession dataTaskWithRequest:urlRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
@@ -33,7 +33,7 @@
         if (data == nil) { return; }
 
         __strong GifDownload *strongSelf = weakSelf;
-        [strongSelf.delegate downloadComplete:data andToken:token];
+        [strongSelf.delegate downloadComplete:data forId:identifier andToken:token];
     }];
 
     [downloadTasks addObject:task];

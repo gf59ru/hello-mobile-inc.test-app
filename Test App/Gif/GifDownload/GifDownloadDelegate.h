@@ -7,6 +7,6 @@
 
 @protocol GifDownloadDelegate <NSObject>
 
-- (void)downloadComplete:(NSData *)data andToken:(NSDate *)token;
+- (void)downloadComplete:(NSData *)data forId:(NSString *)identifier andToken:(NSDate *)token;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "ViewController+CollectionView.h"
 
 @interface ViewController ()
 
@@ -41,7 +42,7 @@
     gifDownload.delegate = self;
     gifDownloadToken = nil;
 
-    gifData = NSMutableArray.new;
+    gifData = [NSMutableArray<GifItem *> new];
 }
 
 - (void)dealloc {
@@ -134,6 +135,8 @@
     [gifSearchBar resignFirstResponder];
 }
 
+- (CGFloat)rowHeight { return 94; }
+
 #pragma mark search bar delegate
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
@@ -209,6 +212,9 @@
     for (id item in result) {
         if (![item isKindOfClass:NSDictionary.class]) { continue; }
 
+        id gifId = item[@"id"];
+        if (gifId == nil || ![gifId isKindOfClass:NSString.class]) { continue; }
+
         id media = item[@"media"];
         if (media == nil || ![media isKindOfClass:NSArray.class]) { continue; }
 
@@ -221,22 +227,72 @@
         id urlString = gif1[@"url"];
         if (urlString == nil || ![urlString isKindOfClass:NSString.class]) { continue; }
 
+        id dims = gif1[@"dims"];
+        if ((dims == nil || ![dims isKindOfClass:NSArray.class]) && [dims count] != 2) { continue; }
+        id width = dims[0];
+        id height = dims[1];
+        if (![width isKindOfClass:NSNumber.class] ||
+            ![height isKindOfClass:NSNumber.class]) { continue; }
+        CGSize size = CGSizeMake([width floatValue], [height floatValue]);
+
         NSURL *url = [NSURL URLWithString:urlString];
         if (url == nil) { continue; }
 
-        [gifDownload downloadGifWithUrl:url withToken:token];
+        [gifData addObject:[GifItem.alloc initWithId:gifId andSize:size]];
+        [gifDownload downloadGifWithUrl:url id:gifId usingToken:token];
     }
 
+    [self calculateGifSizeFitting];
 }
 
-- (void)downloadComplete:(NSData *)data andToken:(NSDate *)token {
-    if (![token isEqualToDate:gifDownloadToken]) { return; }
+- (void)calculateGifSizeFitting {
+    CGFloat screenWidth = UIScreen.mainScreen.bounds.size.width;
+    CGFloat currentRowWidth = 0;
+    uint newRowStartedFrom = 0;
 
-    [gifData addObject:data];
+    for (uint i = 0; i < gifData.count; i++) {
+        GifItem *gifItem = gifData[i];
+        CGFloat ratio = gifItem.size.height / self.rowHeight;
+        CGFloat width = gifItem.size.width / ratio;
+
+        [gifItem setSize:CGSizeMake(width, self.rowHeight)];
+
+        currentRowWidth += width;
+        if (currentRowWidth >= screenWidth) {
+            ratio = currentRowWidth / screenWidth * 1.00001;
+
+            for (uint j = newRowStartedFrom; j <= i; j++) {
+                GifItem *resizingGifItem = gifData[j];
+                CGSize size = resizingGifItem.size;
+                CGFloat newWidth = size.width / ratio;
+                [resizingGifItem setSize:CGSizeMake(newWidth, size.height / ratio)];
+            }
+
+            currentRowWidth = 0;
+            newRowStartedFrom = i + 1;
+        }
+    }
+
     __weak ViewController *weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
         [weakSelf reloadGifCollectionView];
     });
+}
+
+- (void)downloadComplete:(NSData *)data forId:(NSString *)identifier andToken:(NSDate *)token {
+    if (![token isEqualToDate:gifDownloadToken]) { return; }
+
+    for (GifItem *gifItem in gifData) {
+        if ([gifItem.identifier isEqualToString:identifier]) {
+            [gifItem setGifData:data];
+            __weak ViewController *weakSelf = self;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf reloadGifCollectionView];
+            });
+
+            return;
+        }
+    }
 }
 
 - (void)reloadGifCollectionView {

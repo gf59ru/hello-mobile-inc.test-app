@@ -11,7 +11,7 @@
 
 @property (weak, nonatomic) id<GifDownloadDelegate> delegate;
 
-- (void)downloadGifWithUrl:(NSURL *)url withToken:(NSDate *)token;
+- (void)downloadGifWithUrl:(NSURL *)url id:(NSString *)identifier usingToken:(NSDate *)token;
 
 - (void)cancelDownloadTasks;
 

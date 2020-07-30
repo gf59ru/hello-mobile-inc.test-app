@@ -12,6 +12,7 @@
 		5CF6F3AC6F00F8584A2BD8A6 /* GifSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CF6F6E07EADE1B62DDD4BA2 /* GifSearch.m */; };
 		5CF6F5C0784B2060F7C75423 /* UIImageView+gif.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CF6FEA61D5FDD2756B43CE8 /* UIImageView+gif.m */; };
 		5CF6FA201B0F9AE24C78006A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CF6F3E8E5971886E81428D0 /* ViewController.m */; };
+		5CF6FC8C1E6528A1CB2F4F50 /* GifItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CF6FE1775DEED3E2C3CE971 /* GifItem.m */; };
 		BA7EE65924CED914006364E2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BA7EE65824CED914006364E2 /* AppDelegate.m */; };
 		BA7EE65C24CED914006364E2 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BA7EE65B24CED914006364E2 /* SceneDelegate.m */; };
 		BA7EE66424CED915006364E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA7EE66324CED915006364E2 /* Assets.xcassets */; };
@@ -21,6 +22,7 @@
 
 /* Begin PBXFileReference section */
 		5CF6F026DE517C3F3DD1AB89 /* GifSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GifSearch.h; sourceTree = "<group>"; };
+		5CF6F3717E76F1CC3AB85F83 /* GifItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GifItem.h; sourceTree = "<group>"; };
 		5CF6F3E8E5971886E81428D0 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		5CF6F6C5B38F7EA9DCB89D55 /* GifDownload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GifDownload.m; sourceTree = "<group>"; };
 		5CF6F6E07EADE1B62DDD4BA2 /* GifSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GifSearch.m; sourceTree = "<group>"; };
@@ -29,6 +31,7 @@
 		5CF6FBCA7DF82B29C9B10EBF /* GifSearchDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GifSearchDelegate.h; sourceTree = "<group>"; };
 		5CF6FC8B0C7ACD1FDD5AEC05 /* ViewController+CollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+CollectionView.m"; sourceTree = "<group>"; };
 		5CF6FDA207734923344366EE /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		5CF6FE1775DEED3E2C3CE971 /* GifItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GifItem.m; sourceTree = "<group>"; };
 		5CF6FE1A5F07D5FE5A62846C /* GifDownload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GifDownload.h; sourceTree = "<group>"; };
 		5CF6FEA61D5FDD2756B43CE8 /* UIImageView+gif.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+gif.m"; sourceTree = "<group>"; };
 		5CF6FF9F7485C312BD619894 /* UIImageView+gif.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+gif.h"; sourceTree = "<group>"; };
@@ -72,6 +75,15 @@
 				5CF6F6EF228FC15B56E10BEF /* GifDownloadDelegate.h */,
 			);
 			path = GifDownload;
+			sourceTree = "<group>";
+		};
+		5CF6F44BC3D261FFCD46B5FA /* Types */ = {
+			isa = PBXGroup;
+			children = (
+				5CF6F3717E76F1CC3AB85F83 /* GifItem.h */,
+				5CF6FE1775DEED3E2C3CE971 /* GifItem.m */,
+			);
+			path = Types;
 			sourceTree = "<group>";
 		};
 		5CF6F5FEECBC4AF8799485D7 /* UIImage+gif */ = {
@@ -134,6 +146,7 @@
 				BA7EE66924CED915006364E2 /* main.m */,
 				5CF6F094825FE9874AF073B3 /* Gif */,
 				5CF6FE4DD93BA67AE252B886 /* ViewController */,
+				5CF6F44BC3D261FFCD46B5FA /* Types */,
 			);
 			path = "Test App";
 			sourceTree = "<group>";
@@ -223,6 +236,7 @@
 				5CF6F5C0784B2060F7C75423 /* UIImageView+gif.m in Sources */,
 				5CF6FA201B0F9AE24C78006A /* ViewController.m in Sources */,
 				5CF6F31A622944B31BE6EF98 /* ViewController+CollectionView.m in Sources */,
+				5CF6FC8C1E6528A1CB2F4F50 /* GifItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

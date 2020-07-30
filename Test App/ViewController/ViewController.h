@@ -8,6 +8,7 @@
 
 @import UIKit;
 
+#import "GifItem.h"
 #import "GifSearch.h"
 #import "GifDownload.h"
 #import "GifSearchDelegate.h"
@@ -32,9 +33,10 @@
     GifDownload *gifDownload;
     NSDate *gifDownloadToken;
 
-    NSMutableArray<NSData *> *gifData;
+    NSMutableArray<GifItem *> *gifData;
 }
 
+@property (nonatomic, readonly) CGFloat rowHeight;
 
 @end
 
